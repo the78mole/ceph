@@ -3177,6 +3177,12 @@ int CDir::_next_dentry_on_set(dentry_key_set &dns, bool missing_okay,
       continue;
     }
 
+    if (!dn->get_linkage()->is_primary()) {
+      dout(15) << " skip dentry " << dnkey.name
+	       << ", no longer primary" << dendl;
+      continue;
+    }
+
     *dnout = dn;
     return 0;
   }
